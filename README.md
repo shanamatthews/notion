@@ -10,6 +10,7 @@ This project was mostly a chance for me to practice a bit of shell scripting. It
 - [x] Create new page in Notion db with correc title
 - [x] Add property values into newly created page including video link
 - [x] Add page content (home page link, day title)
+- [ ] fix `shellcheck` errors
 - [ ] Copy outlines from Rob's GitHub repo to page
 - [ ] Get Materials attachment working
 - [ ] Add proper emoji (waiting on Notion API support)
