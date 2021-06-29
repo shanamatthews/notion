@@ -18,7 +18,7 @@ get_day_summary()
 {
   url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
   curl -s $url > .sourcereadme.md
-  day_summary=`sed -n '/Day '$day'/,/##/p' .sourcereadme.md
+  day_summary=`sed -n '/Day '$day'/,/##/p' .sourcereadme.md`
 #  echo "$day_summary"
   day_title=`echo "$day_summary" | grep -m 1 ":" | sed 's/^.*: //'`
   video_link=`echo "$day_summary" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//'`
@@ -40,4 +40,4 @@ done
 
 source ./exports
 get_day_summary
-node addpage.js "👩🏼‍💻 rwx boost day $day - $day_title" "$video_link"
+node newrwxboostpage.js "👩🏼‍💻 rwx boost day " "$day - $day_title" "$video_link"
