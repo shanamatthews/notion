@@ -1,0 +1,43 @@
+#!/bin/sh
+
+Help()
+{
+   # Display Help
+   echo "Add description of the script functions here."
+   echo
+   echo "Syntax: scriptTemplate [-d|h|v|V]"
+   echo "options:"
+   echo "d     select day to grab notes for."
+   echo "h     Print this Help."
+   echo "v     Verbose mode."
+   echo "V     Print software version and exit."
+   echo
+}
+
+get_day_summary()
+{
+  url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
+  curl -s $url > .sourcereadme.md
+  day_summary=`sed -n '/Day '$day'/,/##/p' .sourcereadme.md
+#  echo "$day_summary"
+  day_title=`echo "$day_summary" | grep -m 1 ":" | sed 's/^.*: //'`
+  video_link=`echo "$day_summary" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//'`
+}
+
+# Get cli options
+while getopts ":hd:" option; do
+  case $option in 
+    h) # display Help
+       Help
+       exit;;
+    d) # enter day to grab summary for
+       day=$OPTARG;;
+   \?) # invalid option
+       echo "Error: invalid option"
+       exit;;
+  esac
+done
+
+source ./exports
+get_day_summary
+node addpage.js "👩🏼‍💻 rwx boost day $day - $day_title" "$video_link"
