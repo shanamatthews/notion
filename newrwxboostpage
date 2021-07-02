@@ -17,7 +17,7 @@ Help()
 get_day_summary()
 {
   url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
-  curl -s "$url" > .sourcereadme.md
+  curl -s "${url}" > .sourcereadme.md
   day_summary=$(sed -n '/Day '$day'/,/##/p' .sourcereadme.md)
 #  echo "$day_summary"
   day_title=`echo "$day_summary" | grep -m 1 ":" | sed 's/^.*: //'`
