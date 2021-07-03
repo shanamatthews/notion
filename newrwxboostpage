@@ -17,27 +17,45 @@ Help()
 get_day_summary()
 {
   url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
-  curl -s "${url}" > .sourcereadme.md
-  day_summary=$(sed -n '/Day '$day'/,/##/p' .sourcereadme.md)
-#  echo "$day_summary"
-  day_title=`echo "$day_summary" | grep -m 1 ":" | sed 's/^.*: //'`
-  video_link=`echo "$day_summary" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//'`
+  source_readme=$(curl -s "${url}")
+
+# okay, sooo the below works, but takes an insane amount of time. why?
+# it's slow because for each match, the string length is counted multiple times
+# parameter expansion has a known issue of having quadratic complexity (yike)
+# https://stackoverflow.com/questions/14967299/parameter-expansion-slow-for-large-data-sets
+# so we're going back to the original sed way of doing it which is speedy-weedy :)
+#   day_summary_interm="${source_readme##*##*day"$day"}"
+#   day_summary="${day_summary_interm%%##*}"
+
+  day_summary=$(echo "${source_readme}" | sed -n '/Day '"${day}"'/,/##/p')
+
+#   day_title=`echo "$day_summary" | grep -m 1 ":" | sed 's/^.*: //'`
+
+# here we have successfully replaced one sed statement with parameter expansion!
+# go me!
+  line_1=$(echo "${day_summary}" | grep -m 1 ":")
+  day_title="${line_1#*:}"
+  video_link=$(echo "${day_summary}" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//')
 }
 
 # Get cli options
 while getopts ":hd:" option; do
-  case $option in 
+  case ${option} in 
     h) # display Help
        Help
        exit;;
     d) # enter day to grab summary for
-       day=$OPTARG;;
+       day=${OPTARG};;
    \?) # invalid option
+       echo "Error: invalid option"
+       exit;;
+    *) # another invalid option
        echo "Error: invalid option"
        exit;;
   esac
 done
 
-source ./exports
+# shellcheck source=./exports
+. ./exports
 get_day_summary
-node newrwxboostpage.js "👩🏼‍💻 rwx boost day " "$day - $day_title" "$video_link"
+node newrwxboostpage.js "👩🏼‍💻 rwx boost day " "${day} - ${day_title}" "${video_link}"
