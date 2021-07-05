@@ -34,7 +34,7 @@ get_day_summary()
 # here we have successfully replaced one sed statement with parameter expansion!
 # go me!
   line_1=$(echo "${day_summary}" | grep -m 1 ":")
-  day_title="${line_1#*:}"
+  day_title="${line_1#*: }"
   video_link=$(echo "${day_summary}" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//')
 }
 
