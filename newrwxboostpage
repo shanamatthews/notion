@@ -16,8 +16,9 @@ Help()
 
 get_day_summary()
 {
-  url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
-  source_readme=$(curl -s "${url}")
+  raw_url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
+  normal_url="https://github.com/rwxrob/boost/blob/main/README.md"
+  source_readme=$(curl -s "${raw_url}")
 
 # okay, sooo the below works, but takes an insane amount of time. why?
 # it's slow because for each match, the string length is counted multiple times
@@ -35,7 +36,10 @@ get_day_summary()
 # go me!
   line_1=$(echo "${day_summary}" | grep -m 1 ":")
   day_title="${line_1#*: }"
+  day_title_url="${day_title// /-}"
+  day_title_url=$(echo "$day_title_url" | tr '[:upper:]' '[:lower:]')
   video_link=$(echo "${day_summary}" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//')
+  materials_link="${normal_url}#-beginner-boost-day-${day}-${day_title_url}"
 }
 
 # Get cli options
@@ -58,4 +62,4 @@ done
 # shellcheck source=./exports
 . ./exports
 get_day_summary
-node newrwxboostpage.js "👩🏼‍💻 rwx boost day " "${day} - ${day_title}" "${video_link}"
+node newrwxboostpage.js "👩🏼‍💻 rwx boost day " "${day} - ${day_title}" "${video_link}" "${materials_link}"
