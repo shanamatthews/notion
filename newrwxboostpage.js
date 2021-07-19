@@ -9,7 +9,7 @@ const argv = minimist(process.argv.slice(2));
 const pageTitle1 = argv._[0];
 const pageTitle2 = argv._[1];
 const pageTitle = pageTitle1 + pageTitle2;
-const videoLink = argv._[2];
+const videoLink = (argv._[2] != "" ? argv._[2] : null)
 const materialsLink = argv._[3];
 
 async function addItem(title, videoLink) {

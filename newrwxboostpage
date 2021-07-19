@@ -37,7 +37,7 @@ get_day_summary()
   line_1=$(echo "${day_summary}" | grep -m 1 ":")
   day_title="${line_1#*: }"
   day_title_url=$(echo "${day_title}" | tr ' ' '-')
-  day_title_url=$(echo "${day_title_url}" | tr -d '/')
+  day_title_url=$(echo "${day_title_url}" | tr -d '/(),')
   day_title_url=$(echo "${day_title_url}" | tr '[:upper:]' '[:lower:]')
   video_link=$(echo "${day_summary}" | grep -m 1 -o 'https://youtu.be.*)$' | sed 's/)$//')
   materials_link="${normal_url}#-beginner-boost-day-${day}-${day_title_url}"
