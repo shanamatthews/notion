@@ -16,8 +16,8 @@ Help()
 
 get_day_summary()
 {
-  raw_url="https://raw.githubusercontent.com/rwxrob/boost/main/README.md" 
-  normal_url="https://github.com/rwxrob/boost/blob/main/README.md"
+  raw_url="https://raw.githubusercontent.com/rwxrob/boost/old-20210722/README.md" 
+  normal_url="https://github.com/rwxrob/boost/blob/old-20210722/README.md"
   source_readme=$(curl -s "${raw_url}")
 
 # okay, sooo the below works, but takes an insane amount of time. why?
