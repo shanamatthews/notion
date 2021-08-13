@@ -1,6 +1,6 @@
 # Notion page creator
 
-A cli tool to create notes pages in [Notion](https://www.notion.so/). Creates a skeleton notes page from structured markdown outlines.
+A cli tool to create notes pages in [Notion](https://www.notion.so/). Creates a skeleton notes page from structured markdown outlines. Originally used with rwxrob's [old beginner boost outline](https://github.com/rwxrob/boost/tree/old-20210722) written in markdown.
 
 Built with Notion's [JavaScript API](https://developers.notion.com/) and shell scripts.
 
