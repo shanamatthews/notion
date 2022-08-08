@@ -13,5 +13,5 @@ Built with Notion's [JavaScript API](https://developers.notion.com/) and shell s
 - [ ] Copy outlines from GitHub repo to page
 - [x] Get Materials attachment working
 - [ ] Add proper emoji (waiting on Notion API support)
-- [ ] Make this more generic (work with my Notion Zettlekasten DB)
+- [ ] Make this more generic (work with my Notion personal notes)
 - [ ] Clean up CLI interface (-h, add options properly)
